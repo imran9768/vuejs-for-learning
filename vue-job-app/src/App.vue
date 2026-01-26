@@ -2,24 +2,60 @@
   <div class="container">
     <h1>Vue Job App</h1>
     <DayOne />
-    <hr/>
+    <hr />
     <DayTwo />
-        <hr/>
+    <hr />
     <DayThree />
+    <hr />
+    <TodoInput @add-todo="addTodo" />
+
+    <TodoList :todos="todos" @toggle="toggleTodo" @remove="removeTodo" />
   </div>
 </template>
 
 <script>
-import DayOne from './components/DayOne.vue';
-import DayTwo from './components/DayTwo.vue';
-import DayThree from './components/DayThree.vue';
+import { ref } from 'vue'
+import DayOne from "./components/DayOne.vue";
+import DayTwo from "./components/DayTwo.vue";
+import DayThree from "./components/DayThree.vue";
+import TodoInput from "./components/TodoInput.vue";
+import TodoList from "./components/TodoList.vue";
 
 export default {
   components: {
     DayOne,
     DayTwo,
-    DayThree
+    DayThree,
+    TodoInput,
+    TodoList
   },
+    setup() {
+    const todos = ref([])
+
+    const addTodo = (text) => {
+      todos.value.push({
+        id: Date.now(),
+        text,
+        completed: false
+      })
+    }
+
+    const toggleTodo = (id) => {
+      const todo = todos.value.find(t => t.id === id)
+      todo.completed = !todo.completed
+    }
+
+    const removeTodo = (id) => {
+      todos.value = todos.value.filter(t => t.id !== id)
+    }
+
+    return {
+      todos,
+      addTodo,
+      toggleTodo,
+      removeTodo
+    }
+  }
 };
 </script>
 
