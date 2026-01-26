@@ -4,17 +4,21 @@
     <DayOne />
     <hr/>
     <DayTwo />
+        <hr/>
+    <DayThree />
   </div>
 </template>
 
 <script>
 import DayOne from './components/DayOne.vue';
 import DayTwo from './components/DayTwo.vue';
+import DayThree from './components/DayThree.vue';
 
 export default {
   components: {
     DayOne,
-    DayTwo
+    DayTwo,
+    DayThree
   },
 };
 </script>
