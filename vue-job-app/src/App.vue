@@ -8,7 +8,8 @@
     <DayThree />
     <hr />
     <TodoInput @add-todo="addTodo" />
-
+    <br />
+    <DayFour />
     <TodoList :todos="todos" @toggle="toggleTodo" @remove="removeTodo" />
   </div>
 </template>
@@ -20,6 +21,7 @@ import DayTwo from "./components/DayTwo.vue";
 import DayThree from "./components/DayThree.vue";
 import TodoInput from "./components/TodoInput.vue";
 import TodoList from "./components/TodoList.vue";
+import DayFour from "./components/DayFour.vue";
 
 export default {
   components: {
@@ -27,7 +29,8 @@ export default {
     DayTwo,
     DayThree,
     TodoInput,
-    TodoList
+    TodoList,
+    DayFour
   },
     setup() {
     const todos = ref([])
