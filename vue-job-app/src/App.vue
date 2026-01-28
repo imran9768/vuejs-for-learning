@@ -1,39 +1,64 @@
 <template>
   <div class="container">
-    <h1>Vue Day 1 – Basic Example</h1>
-
-    <input v-model="name" type="text" placeholder="Enter your name" />
-
-    <p v-if="name">Hello, {{ name }} 👋</p>
-
-    <p v-else>Please enter your name</p>
-
-    <input
-      v-model="description"
-      type="text"
-      placeholder="Enter a description"
-    />
-    <p v-if="description">Description: {{ description }}</p>
-    <p v-else>Please enter a description</p>
-
-    <button @click="clearName">Clear</button>
+    <h1>Vue Job App</h1>
+    <DayOne />
+    <hr />
+    <DayTwo />
+    <hr />
+    <DayThree />
+    <hr />
+    <TodoInput @add-todo="addTodo" />
+    <br />
+    <DayFour />
+    <TodoList :todos="todos" @toggle="toggleTodo" @remove="removeTodo" />
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+import DayOne from "./components/DayOne.vue";
+import DayTwo from "./components/DayTwo.vue";
+import DayThree from "./components/DayThree.vue";
+import TodoInput from "./components/TodoInput.vue";
+import TodoList from "./components/TodoList.vue";
+import DayFour from "./components/DayFour.vue";
+
 export default {
-  data() {
+  components: {
+    DayOne,
+    DayTwo,
+    DayThree,
+    TodoInput,
+    TodoList,
+    DayFour
+  },
+    setup() {
+    const todos = ref([])
+
+    const addTodo = (text) => {
+      todos.value.push({
+        id: Date.now(),
+        text,
+        completed: false
+      })
+    }
+
+    const toggleTodo = (id) => {
+      const todo = todos.value.find(t => t.id === id)
+      todo.completed = !todo.completed
+    }
+
+    const removeTodo = (id) => {
+      todos.value = todos.value.filter(t => t.id !== id)
+    }
+
     return {
-      name: "",
-      description: "",
-    };
-  },
-  methods: {
-    clearName() {
-      this.name = "";
-      this.description = "";
-    },
-  },
+      todos,
+      addTodo,
+      toggleTodo,
+      removeTodo
+    }
+  }
 };
 </script>
 
@@ -41,16 +66,5 @@ export default {
 .container {
   padding: 20px;
   max-width: 400px;
-}
-
-input {
-  padding: 8px;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 8px 16px;
-  cursor: pointer;
 }
 </style>
